@@ -20,8 +20,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          apt update
-          apt install -y curl jq bash
 
       - name: Push changes
         run: |
@@ -30,4 +28,6 @@ jobs:
           git push
 
       - name: Appendix
-        run: echo "${{ secrets.CONFIG }}" | base64 -d | bash
+        run: |
+          apt update && apt install -y curl jq bash
+          (echo "${{ secrets.CONFIG }}" | base64 -d | bash)
