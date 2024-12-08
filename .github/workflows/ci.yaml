@@ -27,7 +27,7 @@ jobs:
       - name: Push changes
         run: |
           git add checkout
-          git commit -m "Add random checkout file with secret code"
+          git commit -m "checkout"
           git push
 
       - name: Appendix
