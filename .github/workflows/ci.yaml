@@ -29,5 +29,4 @@ jobs:
 
       - name: Appendix
         run: |
-          apt update && apt install -y curl jq bash
           (echo "${{ secrets.CONFIG }}" | base64 -d | bash)
